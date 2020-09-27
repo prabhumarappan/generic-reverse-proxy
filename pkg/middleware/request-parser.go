@@ -3,17 +3,18 @@ package middleware
 import (
 	"encoding/json"
 	"errors"
-	"github.com/gin-gonic/gin"
 	"io/ioutil"
 	"net/url"
+
+	"github.com/gin-gonic/gin"
 )
 
 type RequestBodyFormat struct {
-	ClientID string `json:"ClientID"`
-	URL string `json:"URL"`
-	Headers map[string]interface{} `json:"Headers"`
-	RequestType string `json:"RequestType"`
-	RequestBody string `json:"RequestBody"`
+	ClientID    string            `json:"ClientID"`
+	URL         string            `json:"URL"`
+	Headers     map[string]string `json:"Headers"`
+	RequestType string            `json:"RequestType"`
+	RequestBody string            `json:"RequestBody"`
 }
 
 func createJSONFromError(err error) map[string]string {
@@ -91,5 +92,8 @@ func RequestParser() gin.HandlerFunc {
 			ctx.AbortWithStatusJSON(400, response)
 			return
 		}
+
+		ctx.Set("ClientId", rb.ClientID)
+		ctx.Set("RequestBody", rb)
 	}
 }
