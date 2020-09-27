@@ -1,9 +1,17 @@
 package api
 
 import (
-	"github.com/gin-gonic/gin"
+	"bytes"
+	"errors"
+	"io/ioutil"
 	"net/http"
 	"net/http/httputil"
+	"net/url"
+	"time"
+
+	"github.com/gin-gonic/gin"
+	limiter "github.com/julianshen/gin-limiter"
+	"github.com/prabhumarappan/freshworks-hiring/pkg/middleware"
 )
 
 func attachRequestBodyToContext(ctx *gin.Context, requestBody middleware.RequestBodyFormat) {
@@ -39,5 +47,13 @@ func reverseProxyAPI(ctx *gin.Context) {
 }
 
 func StartInvocation(engine *gin.Engine) {
-	engine.Any("/proxy", reverseProxyAPI)
+	lm := limiter.NewRateLimiter(time.Minute, 50, func(ctx *gin.Context) (string, error) {
+		key := ctx.GetString("ClientId")
+		if key != "" {
+			return key, nil
+		}
+		return "", errors.New("API key is missing")
+	})
+
+	engine.Any("/proxy", lm.Middleware(), reverseProxyAPI)
 }
