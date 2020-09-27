@@ -27,3 +27,10 @@ Deployment
 1. Go to cmd/proxy-server
 2. Run ./main
 3. Or Run go run main.go
+
+
+Rate Limiter
+============
+I was initially thinking of going with a simple Rate Limiter based on the IP address, but since we have the ClientId with us, I then pivoted to the idea that we can rate limit on the basis of the ClientId which will be more usefull from the information that we have!
+
+Additionally, apart from the ClientId rate limiting, we can also have another rate limiter on the basis of IP address too.
