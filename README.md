@@ -19,8 +19,11 @@ Middlewares Used:
 
 Build
 =====
-1. Run go build main.go
+1. Go to cmd/proxy-server
+2. Run go build main.go
 
 Deployment
 ==========
-1. Run ./main
+1. Go to cmd/proxy-server
+2. Run ./main
+3. Or Run go run main.go
