@@ -33,6 +33,23 @@ Test
 1. On the root folder of the project
 2. Run go test ./...
 
+Request Sample
+==============
+```curl
+curl --location --request GET 'localhost:8083/proxy' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "URL": "https://duckduckgo.com",
+    "RequestType": "GET", 
+    "ClientID": "a1ffdc3b-0204-4410-816c-5edaccc4eaad",
+    "Headers": {
+        "Name": "Prabhu",
+        "Gender": "Male"
+    },
+    "RequestBody": "Hello World"
+}'
+```
+
 Rate Limiter
 ============
 I was initially thinking of going with a simple Rate Limiter based on the IP address, but since we have the ClientId with us, I then pivoted to the idea that we can rate limit on the basis of the ClientId which will be more usefull from the information that we have!
