@@ -9,6 +9,8 @@ import (
 	"time"
 )
 
+const TimeOutConstant = 5
+
 func createServer() {
 	server := gin.Default()
 	server.Use(gin.Logger())
@@ -19,8 +21,8 @@ func createServer() {
 	srv := &http.Server{
 		Addr:              ":8083",
 		Handler:           server,
-		ReadTimeout:       5 * time.Second,
-		WriteTimeout:      5 * time.Second,
+		ReadTimeout:       TimeOutConstant * time.Second,
+		WriteTimeout:      TimeOutConstant * time.Second,
 	}
 
 	log.Fatal(srv.ListenAndServe())

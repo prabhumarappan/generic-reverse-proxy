@@ -14,6 +14,8 @@ import (
 	"github.com/prabhumarappan/freshworks-hiring/pkg/middleware"
 )
 
+const PerHourRateLimit = 50
+
 func attachRequestBodyToContext(ctx *gin.Context, requestBody middleware.RequestBodyFormat) {
 	ctx.Request.URL, _ = url.Parse(requestBody.URL)
 	if requestBody.Headers != nil {
@@ -47,7 +49,7 @@ func reverseProxyAPI(ctx *gin.Context) {
 }
 
 func StartInvocation(engine *gin.Engine) {
-	lm := limiter.NewRateLimiter(time.Minute, 50, func(ctx *gin.Context) (string, error) {
+	lm := limiter.NewRateLimiter(time.Minute, PerHourRateLimit, func(ctx *gin.Context) (string, error) {
 		key := ctx.GetString("ClientId")
 		if key != "" {
 			return key, nil
