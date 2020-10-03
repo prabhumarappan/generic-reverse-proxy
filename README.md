@@ -28,6 +28,10 @@ Deployment
 2. Run ./main
 3. Or Run go run main.go
 
+Test
+=====
+1. On the root folder of the project
+2. Run go test ./...
 
 Rate Limiter
 ============
