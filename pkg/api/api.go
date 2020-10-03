@@ -52,7 +52,7 @@ func StartInvocation(engine *gin.Engine) {
 		if key != "" {
 			return key, nil
 		}
-		return "", errors.New("API key is missing")
+		return "", errors.New("ClientId is missing!")
 	})
 
 	engine.Any("/proxy", lm.Middleware(), reverseProxyAPI)
