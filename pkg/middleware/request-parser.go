@@ -64,8 +64,8 @@ func checkRequestBody(rb RequestBodyFormat) error {
 	if (len(rb.RequestType)) == 0 {
 		return errors.New("empty request type provided")
 	}
-	if rb.RequestType != "GET" && rb.RequestType != "POST" && rb.RequestType != "PUT" && rb.RequestType != "DELETE" {
-		return errors.New("request type needs to be either GET or POST or PUT or DELETE")
+	if rb.RequestType != "GET" && rb.RequestType != "POST" && rb.RequestType != "PUT" && rb.RequestType != "DELETE" && rb.RequestType != "OPTIONS" && rb.RequestType != "HEAD" && rb.RequestType != "PATCH" {
+		return errors.New("request type needs to be either GET or POST or PUT or DELETE or OPTIONS or HEAD or PATCH")
 	}
 	return nil
 }
